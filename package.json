@@ -5,7 +5,7 @@
   "contributors": [
     {
       "name": "Damon Maria",
-      "email": "damon@mahuika.co.nz"
+      "email": "damon@mindhive.co.nz"
     }
   ],
   "private": false,
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:damonmaria/some-js.git"
+    "url": "git@github.com:mindhivenz/some-js.git"
   },
   "keywords": [
     "some",
@@ -35,9 +35,9 @@
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0"
   },
-  "homepage": "https://github.com/damonmaria/some-js",
+  "homepage": "https://github.com/mindhivenz/some-js",
   "bugs": {
-    "url": "https://github.com/damonmaria/some-js/issues"
+    "url": "https://github.com/mindhivenz/some-js/issues"
   },
   "license": "MIT"
 }
