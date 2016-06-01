@@ -5,22 +5,27 @@ const some = {}
 some.int = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min
 
-// A positive value integer (minimum 1). The max is optional.
+// A positive value integer (minimum 1) with optional max
 some.positiveInt = (max = 100) =>
   some.int(1, max)
 
+// A float between 0 (inclusive) and 1 (exclusive)
 some.fractionFloat = () =>
   Math.random()
 
+// A float where the range must be specified
 some.float = (minInclusive, maxExclusive) =>
   some.fractionFloat() * (maxExclusive - minInclusive) + minInclusive
 
+// A float between 0 (exclusive) and the given max (exclusive and optional)
 some.positiveFloat = (maxExclusive = 100) =>
   some.float(1e-10, maxExclusive)
 
+// true or false
 some.bool = () =>
   Math.random() >= 0.5
 
+// A string of upper and lowercase latin characters, length is random if omitted
 some.chars = (length = some.int(3, 5)) => {
   const capitalStartCode = 'A'.charCodeAt(0)
   const lowerStartCode = 'a'.charCodeAt(0)
@@ -33,6 +38,7 @@ some.chars = (length = some.int(3, 5)) => {
   return result
 }
 
+// An alias for some.chars
 some.string = some.chars
 
 some.primitive = () => {
@@ -40,7 +46,7 @@ some.primitive = () => {
     case 0:
       return some.bool()
     case 1:
-      return some.positiveInt()
+      return some.int(0, 100)
     default:
       return some.string()
   }
@@ -64,10 +70,16 @@ some.object = (numberOfKeys = 3) => {
   return result
 }
 
+some.nullOrUndefined = () =>
+  some.bool() ? null : undefined
+
+some.nonExistantReference = some.nullOrUndefined
+
 let uniqueSeq = 0
 
 some.unique = {}
 
+// An integer guaranteed not to produce the same value twice
 some.unique.int = () =>
   ++uniqueSeq
 
