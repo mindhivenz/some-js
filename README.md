@@ -30,7 +30,7 @@ Now we make plain that the value itself is not important, and that we are explic
     multiple test runs both true and false will be tested. 
    
 `bool()` is just one of many functions in this package for producing test values. 
-See `index.js` for the complete list.
+See [`index.js`](https://github.com/mindhivenz/some-js/blob/master/src/index.js) for the complete list.
 
 ### Unique namespace
  
