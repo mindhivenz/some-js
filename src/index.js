@@ -75,6 +75,14 @@ some.nullOrUndefined = () =>
 
 some.nonExistantReference = some.nullOrUndefined
 
+some.exception = () => {
+  function SomeException() {
+  }
+  return SomeException
+}
+
+some.error = some.exception
+
 let uniqueSeq = 0
 
 some.unique = {}
