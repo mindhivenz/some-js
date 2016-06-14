@@ -83,6 +83,9 @@ some.exception = () => {
 
 some.error = some.exception
 
+some.ipAddress = () =>
+  `${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}`
+
 let uniqueSeq = 0
 
 some.unique = {}
