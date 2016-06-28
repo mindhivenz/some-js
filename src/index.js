@@ -86,6 +86,11 @@ some.error = some.exception
 some.ipAddress = () =>
   `${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}`
 
+some.one = (object) => {
+  const keys = Object.keys(object)
+  return object[keys[some.int(0, keys.length - 1)]]
+}
+
 let uniqueSeq = 0
 
 some.unique = {}
