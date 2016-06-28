@@ -52,11 +52,14 @@ some.primitive = () => {
   }
 }
 
-some.array = (length = 3) => {
+some.array = (length = 3) =>
+  some.arrayOf(some.primitive, length)
+
+some.arrayOf = (generator, length = 3) => {
   const result = []
 
   while (result.length < length) {
-    result.push(some.primitive())
+    result.push(generator())
   }
   return result
 }
