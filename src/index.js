@@ -41,6 +41,16 @@ some.chars = (length = some.int(3, 5)) => {
 // An alias for some.chars
 some.string = some.chars
 
+const mongoIdChars = '23456789ABCDEFGHJKLMNPQRSTWXYZabcdefghijkmnopqrstuvwxyz'
+
+some.mongoId = () => {
+  let result = ''
+  while (result.length < 17) {
+    result += mongoIdChars[some.int(0, mongoIdChars.length - 1)]
+  }
+  return result
+}
+
 some.primitive = () => {
   switch (some.int(0, 2)) {
     case 0:
