@@ -89,8 +89,7 @@ some.nullOrUndefined = () =>
 some.nonExistantReference = some.nullOrUndefined
 
 some.exception = () => {
-  function SomeException() {
-  }
+  function SomeException() {}
   return SomeException
 }
 
@@ -100,9 +99,12 @@ some.ipAddress = () =>
   `${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}`
 
 some.one = (object) => {
-  const keys = Object.keys(object)
-  return object[keys[some.int(0, keys.length - 1)]]
+  const values = Object.values(object)
+  return values[some.int(0, values.length - 1)]
 }
+
+some.enum = (enumClass) =>
+  some.one(enumClass.enumValues)
 
 let uniqueSeq = 0
 
