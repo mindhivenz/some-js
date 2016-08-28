@@ -109,6 +109,9 @@ some.enum = (enumClass) =>
 some.pastDate = () =>
   new Date(Date.now() - some.positiveInt(1000 * 60 * 60 * 24 * 1000))
 
+some.futureDate = () =>
+  new Date(Date.now() + some.positiveInt(1000 * 60 * 60 * 24 * 1000))
+
 let uniqueSeq = 0
 
 some.unique = {}
