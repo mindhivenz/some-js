@@ -62,10 +62,10 @@ some.primitive = () => {
   }
 }
 
-some.array = (length = 3) =>
+some.array = (length = some.int(2, 4)) =>
   some.arrayOf(some.primitive, length)
 
-some.arrayOf = (generator, length = 3) => {
+some.arrayOf = (generator, length = some.int(2, 4)) => {
   const result = []
 
   while (result.length < length) {
@@ -97,6 +97,9 @@ some.error = some.exception
 
 some.ipAddress = () =>
   `${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}`
+
+some.email = () =>
+  `${some.string()}@${some.string()}.com`
 
 some.one = (object) => {
   const values = Object.values(object)
