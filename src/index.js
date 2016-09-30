@@ -128,7 +128,7 @@ some.unique.string = (prefix = some.chars(3)) => {
   if (result.includes(' ')) {
     result += ' '
   }
-  return result + some.positiveInt()
+  return result + some.unique.int()
 }
 
 module.exports = some
