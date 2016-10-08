@@ -86,7 +86,7 @@ some.object = (numberOfKeys = 3) => {
 some.nullOrUndefined = () =>
   some.bool() ? null : undefined
 
-some.nonExistantReference = some.nullOrUndefined
+some.nonExistentReference = some.nullOrUndefined
 
 some.exception = () => {
   function SomeException() {}
