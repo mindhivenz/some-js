@@ -9,6 +9,9 @@ some.int = (min, max) =>
 some.positiveInt = (max = 100) =>
   some.int(1, max)
 
+some.negativeInt = (min = -100) =>
+  some.int(min, -1)
+
 // A float between 0 (inclusive) and 1 (exclusive)
 some.fractionFloat = () =>
   Math.random()
