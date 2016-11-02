@@ -1,4 +1,3 @@
-/* global describe, it */
 import 'sinon'
 import chai from 'chai'
 const should = chai.should()
