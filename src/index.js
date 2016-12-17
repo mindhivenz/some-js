@@ -96,7 +96,11 @@ some.exception = () => {
   return SomeException
 }
 
+some.Exception = some.exception
+
 some.error = some.exception
+
+some.Error = some.exception
 
 some.ipAddress = () =>
   `${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}`
