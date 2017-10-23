@@ -119,8 +119,30 @@ some.enum = (enumClass) =>
 some.pastDate = (before = new Date()) =>
   new Date(before.getTime() - some.positiveInt(1000 * 60 * 60 * 24 * 1000))
 
+some.pastDates = (length = some.int(3, 5), before = new Date()) => {
+  let result = []
+  let lastDate = before
+  while (result.length < length) {
+    const newDate = some.pastDate(lastDate)
+    result = [newDate, ...result]
+    lastDate = newDate
+  }
+  return result
+}
+
 some.futureDate = (after = new Date()) =>
   new Date(after.getTime() + some.positiveInt(1000 * 60 * 60 * 24 * 1000))
+
+some.futureDates = (length = some.int(3, 5), after = new Date()) => {
+  let result = []
+  let lastDate = after
+  while (result.length < length) {
+    const newDate = some.futureDate(lastDate)
+    result = [...result, newDate]
+    lastDate = newDate
+  }
+  return result
+}
 
 let uniqueSeq = 0
 
