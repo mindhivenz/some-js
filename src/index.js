@@ -145,7 +145,7 @@ some.futureDates = (length = some.int(3, 5), after = new Date()) => {
 }
 
 some.dateBetween = (startDate, endDate) =>
-  new Date(some.int(startDate.time(), endDate.getTime()))
+  new Date(some.int(startDate.getTime(), endDate.getTime()))
 
 let uniqueSeq = 0
 
