@@ -1,74 +1,67 @@
-
-const some = {}
-
 // Integer where the range must be specified
-some.int = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min
+export const integer = (minInclusive: number, maxInclusive: number) =>
+  Math.floor(Math.random() * (maxInclusive - minInclusive + 1)) + minInclusive
+
+export { integer as int }
 
 // A positive value integer (minimum 1) with optional max
-some.positiveInt = (max = 100) =>
-  some.int(1, max)
+export const positiveInt = (max = 100) => integer(1, max)
 
-some.negativeInt = (min = -100) =>
-  some.int(min, -1)
+export const negativeInt = (min = -100) => integer(min, -1)
 
 // A float between 0 (inclusive) and 1 (exclusive)
-some.fractionFloat = () =>
-  Math.random()
+export const fractionFloat = () => Math.random()
 
 // A float where the range must be specified
-some.float = (minInclusive, maxExclusive) =>
-  some.fractionFloat() * (maxExclusive - minInclusive) + minInclusive
+export const float = (minInclusive: number, maxExclusive: number) =>
+  fractionFloat() * (maxExclusive - minInclusive) + minInclusive
 
 // A float between 0 (exclusive) and the given max (exclusive and optional)
-some.positiveFloat = (maxExclusive = 100) =>
-  some.float(1e-10, maxExclusive)
+export const positiveFloat = (maxExclusive = 100) => float(1e-10, maxExclusive)
 
 // true or false
-some.bool = () =>
-  Math.random() >= 0.5
+export const bool = () => Math.random() >= 0.5
 
 // A string of upper and lowercase latin characters, length is random if omitted
-some.chars = (length = some.int(3, 5)) => {
+export const chars = (length = integer(3, 5)) => {
   const capitalStartCode = 'A'.charCodeAt(0)
   const lowerStartCode = 'a'.charCodeAt(0)
   let result = ''
 
   while (result.length < length) {
-    const startCode = some.bool() ? capitalStartCode : lowerStartCode
-    result += String.fromCharCode(startCode + some.int(0, 25))
+    const startCode = bool() ? capitalStartCode : lowerStartCode
+    result += String.fromCharCode(startCode + integer(0, 25))
   }
   return result
 }
 
 // An alias for some.chars
-some.string = some.chars
+export { chars as string }
 
 const mongoIdChars = '23456789ABCDEFGHJKLMNPQRSTWXYZabcdefghijkmnopqrstuvwxyz'
 
-some.mongoId = () => {
+export const mongoId = () => {
   let result = ''
   while (result.length < 17) {
-    result += mongoIdChars[some.int(0, mongoIdChars.length - 1)]
+    result += mongoIdChars[integer(0, mongoIdChars.length - 1)]
   }
   return result
 }
 
-some.primitive = () => {
-  switch (some.int(0, 2)) {
+export const primitive = () => {
+  switch (integer(0, 2)) {
     case 0:
-      return some.bool()
+      return bool()
     case 1:
-      return some.int(0, 100)
+      return integer(0, 100)
     default:
-      return some.string()
+      return chars()
   }
 }
 
-some.array = (length = some.int(2, 4)) =>
-  some.arrayOf(some.primitive, length)
+export const array = (length = integer(2, 4)) => arrayOf(primitive, length)
 
-some.arrayOf = (generator, length = some.int(2, 4)) => {
+export const arrayOf = <T>(generator: () => T, length = integer(2, 4)) => {
   const result = []
 
   while (result.length < length) {
@@ -77,90 +70,69 @@ some.arrayOf = (generator, length = some.int(2, 4)) => {
   return result
 }
 
-some.object = (numberOfKeys = 3) => {
-  const result = {}
+export const object = (numberOfKeys = 3) => {
+  const result: Record<string, ReturnType<typeof primitive>> = {}
 
   while (Object.keys(result).length < numberOfKeys) {
-    result[some.string()] = some.primitive()
+    result[chars()] = primitive()
   }
   return result
 }
 
-some.nullOrUndefined = () =>
-  some.bool() ? null : undefined
+export const nullOrUndefined = () => (bool() ? null : undefined)
 
-some.nonExistentReference = some.nullOrUndefined
+export { nullOrUndefined as nonExistentReference }
 
-some.exception = () => {
-  function SomeException() {}
-  return SomeException
+export const ipAddress = () =>
+  `${integer(1, 255)}.${integer(1, 255)}.${integer(1, 255)}.${integer(1, 255)}`
+
+export const email = () => `${chars()}@${chars()}.com`
+
+export const one = (possibilities: any[]) => {
+  return possibilities[integer(0, possibilities.length - 1)]
 }
 
-some.Exception = some.exception
+export const pastDate = (before = new Date()) =>
+  new Date(before.getTime() - positiveInt(1000 * 60 * 60 * 24 * 1000))
 
-some.error = some.exception
-
-some.Error = some.exception
-
-some.ipAddress = () =>
-  `${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}.${some.int(1, 255)}`
-
-some.email = () =>
-  `${some.string()}@${some.string()}.com`
-
-some.one = (object) => {
-  const values = Object.values(object)
-  return values[some.int(0, values.length - 1)]
-}
-
-some.enum = (enumClass) =>
-  some.one(enumClass.enumValues)
-
-some.pastDate = (before = new Date()) =>
-  new Date(before.getTime() - some.positiveInt(1000 * 60 * 60 * 24 * 1000))
-
-some.pastDates = (length = some.int(3, 5), before = new Date()) => {
-  let result = []
+export const pastDates = (length = integer(3, 5), before = new Date()) => {
+  let result: Date[] = []
   let lastDate = before
   while (result.length < length) {
-    const newDate = some.pastDate(lastDate)
+    const newDate = pastDate(lastDate)
     result = [newDate, ...result]
     lastDate = newDate
   }
   return result
 }
 
-some.futureDate = (after = new Date()) =>
-  new Date(after.getTime() + some.positiveInt(1000 * 60 * 60 * 24 * 1000))
+export const futureDate = (after = new Date()) =>
+  new Date(after.getTime() + positiveInt(1000 * 60 * 60 * 24 * 1000))
 
-some.futureDates = (length = some.int(3, 5), after = new Date()) => {
-  let result = []
+export const futureDates = (length = integer(3, 5), after = new Date()) => {
+  let result: Date[] = []
   let lastDate = after
   while (result.length < length) {
-    const newDate = some.futureDate(lastDate)
+    const newDate = futureDate(lastDate)
     result = [...result, newDate]
     lastDate = newDate
   }
   return result
 }
 
-some.dateBetween = (startDate, endDate) =>
-  new Date(some.int(startDate.getTime(), endDate.getTime()))
+export const dateBetween = (startDate: Date, endDate: Date) =>
+  new Date(integer(startDate.getTime(), endDate.getTime()))
 
 let uniqueSeq = 0
 
-some.unique = {}
-
-// An integer guaranteed not to produce the same value twice
-some.unique.int = () =>
-  ++uniqueSeq
-
-some.unique.string = (prefix = some.chars(3)) => {
-  let result = prefix
-  if (result.includes(' ')) {
-    result += ' '
-  }
-  return result + some.unique.int()
+export const unique = {
+  int: () => unique.integer(),
+  integer: () => ++uniqueSeq,
+  string: (prefix = chars(3)) => {
+    let result = prefix
+    if (result.includes(' ')) {
+      result += ' '
+    }
+    return result + unique.integer()
+  },
 }
-
-module.exports = some

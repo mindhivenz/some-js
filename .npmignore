@@ -1,4 +1,4 @@
 src
 .idea
 *.iml
-.babelrc
+tsconfig.json
