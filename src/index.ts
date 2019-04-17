@@ -53,10 +53,22 @@ export const primitive = () => {
     case 0:
       return bool()
     case 1:
-      return integer(0, 100)
+      return integer(-100, 100)
     default:
       return chars()
   }
+}
+
+export const notStringPrimitive = () => {
+  return bool() ? integer(-100, 100) : chars()
+}
+
+export const notNumberPrimitive = () => {
+  return bool() ? bool() : chars()
+}
+
+export const notBoolPrimitive = () => {
+  return bool() ? integer(-100, 100) : chars()
 }
 
 export const array = (length = integer(2, 4)) => arrayOf(primitive, length)
