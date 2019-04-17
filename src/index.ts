@@ -60,7 +60,7 @@ export const primitive = () => {
 }
 
 export const notStringPrimitive = () => {
-  return bool() ? integer(-100, 100) : chars()
+  return bool() ? integer(-100, 100) : bool()
 }
 
 export const notNumberPrimitive = () => {
