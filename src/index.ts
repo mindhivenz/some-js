@@ -100,7 +100,7 @@ export const ipAddress = () =>
 
 export const email = () => `${chars()}@${chars()}.com`
 
-export const one = (possibilities: any[]) => {
+export const one = <T = any>(possibilities: T[]) => {
   return possibilities[integer(0, possibilities.length - 1)]
 }
 

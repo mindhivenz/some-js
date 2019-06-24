@@ -2,3 +2,5 @@ src
 .idea
 *.iml
 tsconfig.json
+gulpfile.ts
+tslint.json
