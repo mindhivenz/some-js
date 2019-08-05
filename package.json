@@ -11,6 +11,10 @@
   "license": "MIT",
   "private": false,
   "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:mindhivenz/some-js.git"
